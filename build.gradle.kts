@@ -12,9 +12,16 @@ dependencies {
     implementation("io.ktor:ktor-server-netty-jvm:2.3.7")
     implementation("io.ktor:ktor-server-content-negotiation:2.3.7")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.7")
+
+    // Ktor client dependencies
+    implementation("io.ktor:ktor-client-core-jvm:2.3.7")
+    implementation("io.ktor:ktor-client-cio-jvm:2.3.7")
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.7")
+
     implementation("org.jetbrains.exposed:exposed-core:0.50.1")
     implementation("org.jetbrains.exposed:exposed-dao:0.50.1")
     implementation("org.jetbrains.exposed:exposed-jdbc:0.50.1")
+    implementation("org.jetbrains.exposed:exposed-java-time:0.50.1")
     implementation("org.postgresql:postgresql:42.7.3")
     implementation("com.zaxxer:HikariCP:5.0.1")
     implementation("ch.qos.logback:logback-classic:1.4.14")

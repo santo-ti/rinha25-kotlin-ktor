@@ -2,36 +2,23 @@ package com.santo.rinha.domain.ports
 
 import com.santo.rinha.domain.Payment
 import com.santo.rinha.domain.PaymentSummary
+import java.math.BigDecimal
+import java.util.UUID
 
-// Driving Ports (Use Cases)
 interface ProcessPaymentPort {
-    suspend fun processPayment(value: Long, description: String): Payment
+    suspend fun processPayment(correlationId: UUID, amount: BigDecimal)
 }
 
 interface GetPaymentSummaryPort {
-    suspend fun getPaymentSummary(): PaymentSummary
+    suspend fun getPaymentSummary(from: String?, to: String?): PaymentSummary
 }
 
-// Driven Ports (Infrastructure)
 interface PaymentRepositoryPort {
-    suspend fun save(payment: Payment): Payment
-    suspend fun getSummary(): PaymentSummary
-    suspend fun batchSave(payments: List<Payment>): List<Payment>
+    suspend fun save(payment: Payment)
+    suspend fun getSummary(from: String?, to: String?): PaymentSummary
 }
 
 interface PaymentProcessorPort {
-    suspend fun processPayment(value: Long, description: String): Payment
-    suspend fun getServiceHealth(): ServiceHealth
-}
-
-data class ServiceHealth(
-    val status: HealthStatus,
-    val minResponseTimeMs: Long
-)
-
-enum class HealthStatus {
-    OK,
-    DEGRADED,
-    UNAVAILABLE
+    suspend fun processPayment(correlationId: UUID, amount: BigDecimal)
 }
 
