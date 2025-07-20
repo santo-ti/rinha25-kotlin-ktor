@@ -1,5 +1,6 @@
-package com.santo.rinha
+package com.santo.rinha.config
 
+import com.santo.rinha.infra.routes.paymentRoutes
 import io.ktor.server.application.Application
 import io.ktor.server.application.call
 import io.ktor.server.response.respondText
@@ -11,5 +12,9 @@ fun Application.configureRouting() {
         get("/") {
             call.respondText("Hello World!")
         }
+        paymentRoutes(
+            DependencyContainer.processPaymentPort,
+            DependencyContainer.getPaymentSummaryPort
+        )
     }
 }
