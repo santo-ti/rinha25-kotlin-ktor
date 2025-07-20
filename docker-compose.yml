@@ -1,0 +1,45 @@
+services:
+  backend:
+    image: rinha-backend:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=jdbc:postgresql://db:5432/rinha
+      - DATABASE_USER=rinha
+      - DATABASE_PASSWORD=rinha
+      - PRIMARY_PROCESSOR_URL=http://payment-processor-default:8080
+      - FALLBACK_PROCESSOR_URL=http://payment-processor-fallback:8080
+    ports:
+      - "9999:9999"
+    depends_on:
+        - db
+    deploy:
+      resources:
+        limits:
+          cpus: "0.75"
+          memory: "175MB"
+    networks:
+      - backend
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=rinha
+      - POSTGRES_USER=rinha
+      - POSTGRES_PASSWORD=rinha
+    ports:
+      - "5432:5432"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: "175MB"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+  payment-processor:
+    external: true

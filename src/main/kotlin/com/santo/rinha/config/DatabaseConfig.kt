@@ -15,8 +15,8 @@ object DatabaseConfig {
     private fun createDataSource(): DataSource {
         val config = HikariConfig().apply {
             jdbcUrl = System.getenv("DATABASE_URL") ?: "jdbc:postgresql://localhost:5432/rinha"
-            username = System.getenv("DATABASE_USER") ?: "postgres"
-            password = System.getenv("DATABASE_PASSWORD") ?: "postgres"
+            username = System.getenv("DATABASE_USER") ?: "rinha"
+            password = System.getenv("DATABASE_PASSWORD") ?: "rinha"
             driverClassName = "org.postgresql.Driver"
 
             // Optimized connection pool settings for limited resources

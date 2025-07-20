@@ -13,8 +13,8 @@ fun main() {
 }
 
 fun Application.module() {
+    configureDatabase()
     configureSerialization()
     configureDependencyInjection()
-    configureDatabase()
     configureRouting()
 }
