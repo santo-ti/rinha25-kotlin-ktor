@@ -20,8 +20,8 @@ object DatabaseConfig {
             driverClassName = "org.postgresql.Driver"
 
             // Optimized connection pool settings for limited resources
-            maximumPoolSize = 10
-            minimumIdle = 2
+            maximumPoolSize = 2
+            minimumIdle = 1
             connectionTimeout = 3000
             idleTimeout = 300000
             maxLifetime = 600000
