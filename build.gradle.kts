@@ -1,55 +1,59 @@
 plugins {
-    kotlin("jvm") version "2.1.10"
+    kotlin("jvm") version "1.9.23"
     application
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.1.10"
 }
 
-group = "com.santo.rinha"
-version = "1.0.0"
-
 application {
-    mainClass.set("com.santo.rinha.ApplicationKt")
+    mainClass.set("app.ApplicationKt")
+}
+
+dependencies {
+    implementation("io.ktor:ktor-server-core-jvm:2.3.7")
+    implementation("io.ktor:ktor-server-netty-jvm:2.3.7")
+    implementation("io.ktor:ktor-server-content-negotiation:2.3.7")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.7")
+    implementation("org.jetbrains.exposed:exposed-core:0.50.1")
+    implementation("org.jetbrains.exposed:exposed-dao:0.50.1")
+    implementation("org.jetbrains.exposed:exposed-jdbc:0.50.1")
+    implementation("org.postgresql:postgresql:42.7.3")
+    implementation("com.zaxxer:HikariCP:5.0.1")
+    implementation("ch.qos.logback:logback-classic:1.4.14")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 }
 
 repositories {
     mavenCentral()
 }
 
-dependencies {
-    // Ktor server
-    implementation("io.ktor:ktor-server-core:2.3.8")
-    implementation("io.ktor:ktor-server-netty:2.3.8")
-    implementation("io.ktor:ktor-server-content-negotiation:2.3.8")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.8")
-
-    // Ktor client
-    implementation("io.ktor:ktor-client-core:2.3.8")
-    implementation("io.ktor:ktor-client-cio:2.3.8")
-    implementation("io.ktor:ktor-client-content-negotiation:2.3.8")
-
-    // JSON
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
-
-    // Exposed ORM
-    implementation("org.jetbrains.exposed:exposed-core:0.46.0")
-    implementation("org.jetbrains.exposed:exposed-dao:0.46.0")
-    implementation("org.jetbrains.exposed:exposed-jdbc:0.46.0")
-    implementation("org.jetbrains.exposed:exposed-java-time:0.46.0")
-
-    // PostgreSQL JDBC driver
-    implementation("org.postgresql:postgresql:42.6.0")
-
-    // HikariCP
-    implementation("com.zaxxer:HikariCP:5.0.1")
-
-    // Optional logging (can remove later)
-    implementation("ch.qos.logback:logback-classic:1.4.11")
-
-    // Testing
-    testImplementation("io.ktor:ktor-server-test-host:2.3.8")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:2.1.10")
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions.jvmTarget = "21"
+    kotlinOptions.freeCompilerArgs += listOf("-Xjvm-default=all")
 }
 
-kotlin {
-    jvmToolchain(17)
+tasks.withType<JavaExec> {
+    jvmArgs = listOf(
+        "-XX:+UseZGC",
+        "-XX:+AlwaysPreTouch",
+        "-XX:+UseNUMA",
+        "-XX:+UnlockExperimentalVMOptions",
+        "-XX:+UseContainerSupport",
+        "-XX:MaxRAMPercentage=80",
+        "-XX:InitialRAMPercentage=80",
+        "-XX:MinRAMPercentage=80",
+        "-XX:+DisableExplicitGC",
+        "-XX:+PerfDisableSharedMem",
+        "-XX:+ParallelRefProcEnabled",
+        "-XX:MaxInlineLevel=15",
+        "-XX:MaxInlineSize=1024",
+        "-XX:InlineSmallCode=1024",
+        "-XX:ThreadStackSize=512",
+        "-XX:+AggressiveOpts",
+        "-XX:+OptimizeStringConcat",
+        "-XX:+UseFastAccessorMethods",
+        "-XX:+UseStringDeduplication",
+        "-XX:+UseCompressedOops",
+        "-XX:+UseCompressedClassPointers",
+        "-XX:+ExitOnOutOfMemoryError",
+        "-XX:ActiveProcessorCount=2"
+    )
 }
