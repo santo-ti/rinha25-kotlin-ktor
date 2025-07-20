@@ -4,7 +4,7 @@ plugins {
 }
 
 application {
-    mainClass.set("app.ApplicationKt")
+    mainClass.set("com.santo.rinha.ApplicationKt")
 }
 
 dependencies {

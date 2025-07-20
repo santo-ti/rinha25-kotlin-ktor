@@ -1,4 +1,4 @@
-package app
+package com.santo.rinha
 
 import com.santo.rinha.config.DIConfig.configureDependencyInjection
 import com.santo.rinha.config.DatabaseConfig.configureDatabase
