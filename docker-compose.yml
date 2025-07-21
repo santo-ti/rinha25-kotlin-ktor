@@ -18,7 +18,7 @@ services:
       resources:
         limits:
           cpus: "0.6"
-          memory: "90MB"
+          memory: "85MB"
 
   santo-backend-2:
     image: santo-rinha:latest
@@ -39,7 +39,7 @@ services:
       resources:
         limits:
           cpus: "0.6"
-          memory: "90MB"
+          memory: "85MB"
 
   santo-nginx:
     image: nginx:1.25-alpine
@@ -56,7 +56,7 @@ services:
       resources:
         limits:
           cpus: "0.1"
-          memory: "20MB"
+          memory: "15MB"
 
   santo-db:
     image: postgres:15-alpine
@@ -72,7 +72,7 @@ services:
       resources:
         limits:
           cpus: "0.2"
-          memory: "150MB"
+          memory: "165MB"
 
 networks:
   santo-backend:
